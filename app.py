@@ -17,7 +17,7 @@ if "memory_committed" not in st.session_state:
 @st.cache_data
 def get_filter_options():
     try:
-        df = pd.read_csv("synthetic_intelligent_supply_chain.csv")
+        df = pd.read_csv("synthetic_intelligent_supply_chain.csv", encoding='latin1')
         return list(df['SKU'].unique()), list(df['Destination_Region'].unique())
     except:
         return ["SKU-MICROCHIPS-77X", "SKU-LITHIUM-CELLS", "SKU-STEEL-FASTENERS"], ["US-East", "US-West", "EMEA", "APAC"]
@@ -50,7 +50,7 @@ if st.session_state.pipeline_results:
     st.error(f"?? Operational Exception: {t['predicted_delay']} Day Variance Predicted (+{t['volume_spike']}% Strain)")
     
     m1, m2, m3 = st.columns(3)
-    m1.metric("Telemetry Core Temp", f"{t['temp']} °C", delta="Target < 35°C", delta_color="inverse")
+    m1.metric("Telemetry Core Temp", f"{t['temp']} Â°C", delta="Target < 35Â°C", delta_color="inverse")
     m2.metric("Inbound Kinetic Impact", f"{t['shock']} G", delta="Nominal < 1.5G", delta_color="inverse")
     m3.metric("Explainable AI Root Cause Determination", str(t['root_cause']))
     
