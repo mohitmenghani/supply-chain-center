@@ -16,7 +16,7 @@ app = FastAPI(title="AMD High-Performance Operations Engine - Enterprise V2")
 
 # 1. Initialize Datasets & Quantitative Models
 print("?? Loading data and compiling XGBoost + SHAP layers...")
-df = pd.read_csv("synthetic_intelligent_supply_chain.csv")
+df = pd.read_csv("synthetic_intelligent_supply_chain.csv", encoding='latin1')
 features = ['Historical_Avg_Demand', 'Current_Order_Volume', 'Warehouse_Capacity_Pct', 'Scheduled_Transit_Days', 'IoT_Container_Temp_C', 'IoT_Shock_G']
 X = df[features]
 y = df['Days_Delayed']
