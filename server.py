@@ -54,13 +54,13 @@ def calculate_expedited_freight_rate(sku: str, destination: str):
 def get_live_rocm_telemetry():
     """Reads live performance metrics directly from the active AMD card."""
     try:
-        result = subprocess.check_output(["rocm-smi", "--showshowtemp", "--showuse"], text=True)
+        result = subprocess.check_output(["rocm-smi", "--showshowtemp", "--showuse"], stderr=subprocess.STDOUT).decode("utf-8", errors="replace")
         temp = re.search(r'Temperature \(Sensor edge\) \(C\): (\d+)', result).group(1)
         gpu_use = re.search(r'GPU use \(\%\): (\d+)', result).group(1)
-        return {"live_temp_c": f"{temp}°C", "live_utilization": f"{gpu_use}%"}
+        return {"live_temp_c": f"{temp}Â°C", "live_utilization": f"{gpu_use}%"}
     except:
         # Graceful fallback parameter if running inside a locked environment container
-        return {"live_temp_c": "54°C", "live_utilization": "88%"}
+        return {"live_temp_c": "54Â°C", "live_utilization": "88%"}
 
 class PipelineRequest(BaseModel):
     sku: str
